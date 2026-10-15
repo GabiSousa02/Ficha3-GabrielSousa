@@ -15,6 +15,7 @@ const cards = [
 function App() {
   const [tipo, setTipo] = useState('todas');
   const [pesquisa, setPesquisa] = useState('');
+  const [ordenarAtaque, setOrdenarAtaque] = useState(false);
 
   const cartasFiltradas = cards.filter((card) => {
     const correspondeTipo =
@@ -24,6 +25,14 @@ function App() {
       card.name.toLowerCase().includes(pesquisa.toLowerCase());
 
     return correspondeTipo && correspondePesquisa;
+  });
+
+  const cartasOrdenadas = [...cartasFiltradas].sort((a, b) => {
+    if (ordenarAtaque) {
+      return b.attack - a.attack;
+    }
+
+    return 0;
   });
 
   return (
@@ -51,9 +60,13 @@ function App() {
         Feitiços
       </button>
 
+      <button onClick={() => setOrdenarAtaque(!ordenarAtaque)}>
+        Ordenar por ataque
+      </button>
+
       <div>
-        {cartasFiltradas.map((card, index) => (
-          <Card key={index} card={card} />
+        {cartasOrdenadas.map((card) => (
+          <Card key={card.name} card={card} />
         ))}
       </div>
     </div>
