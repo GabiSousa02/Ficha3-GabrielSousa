@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Card from './Card';
 
@@ -16,13 +17,19 @@ function App() {
   const [pesquisa, setPesquisa] = useState('');
 
   const cartasFiltradas = cards.filter((card) => {
-    const correspondeTipo = tipo === 'todas' || card.type === tipo;
-    const correspondePesquisa = card.name.toLowerCase().includes(pesquisa.toLowerCase());
+    const correspondeTipo =
+      tipo === 'todas' || card.type === tipo;
+
+    const correspondePesquisa =
+      card.name.toLowerCase().includes(pesquisa.toLowerCase());
+
     return correspondeTipo && correspondePesquisa;
   });
 
   return (
     <div>
+      <h1>A minha coleção de cartas</h1>
+
       <input
         type="text"
         placeholder="Pesquisar carta..."
@@ -32,13 +39,23 @@ function App() {
 
       <p>Tenho {cartasFiltradas.length} cartas</p>
 
-      <button onClick={() => setTipo('todas')}> Todas </button>
-      <button onClick={() => setTipo('criatura')}> Criaturas </button>
-      <button onClick={() => setTipo('feitiço')}> Feitiços </button>
+      <button onClick={() => setTipo('todas')}>
+        Todas
+      </button>
 
-      {cartasFiltradas.map((card, index) => (
-        <Card key={index} card={card} />
-      ))}
+      <button onClick={() => setTipo('criatura')}>
+        Criaturas
+      </button>
+
+      <button onClick={() => setTipo('feitiço')}>
+        Feitiços
+      </button>
+
+      <div>
+        {cartasFiltradas.map((card, index) => (
+          <Card key={index} card={card} />
+        ))}
+      </div>
     </div>
   );
 }
