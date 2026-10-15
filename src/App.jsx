@@ -7,17 +7,30 @@ const cards = [
   { name: "Cavaleiro", type: "criatura", attack: 6 },
   { name: "Tsukuyomi", type: "criatura", attack: 20 },
   { name: "Izanagi", type: "criatura", attack: 15 },
-  { name: "Chuva de meteoros", type: "feitiço", attack: 10 }
+  { name: "Chuva de meteoros", type: "feitiço", attack: 10 },
+  { name: "Estaca de gelo", type: "feitiço", attack: 10 }
 ];
  
 function App() {
   const [tipo, setTipo] = useState("todas");
- 
+ const [pesquisa, setPesquisa] = useState("");
   const cartasFiltradas = cards.filter((card) => {
-    if (tipo === "todas") return true;
-    return card.type === tipo;
-  });
+  const correspondeTipo =
+    tipo === "todas" || card.type === tipo;
  
+  const correspondePesquisa =
+    card.name.toLowerCase().includes(
+      pesquisa.toLowerCase()
+    );
+ 
+  return correspondeTipo && correspondePesquisa;
+  });
+ <input
+  type="text"
+  placeholder="Pesquisar carta..."
+  value={pesquisa}
+  onChange={(e) => setPesquisa(e.target.value)}
+/>
   return (
     <div>
       <p>Tenho {cartasFiltradas.length} cartas</p>
