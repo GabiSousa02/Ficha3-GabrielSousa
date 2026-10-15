@@ -13,4 +13,16 @@ function App() {
   );
 }
 
+import Card from "./Card";
+ 
+function App() {
+  return (
+    <div>
+      {cards.map((card, index) => (
+        <Card key={index} card={card} />
+      ))}
+    </div>
+  );
+}
+ 
 export default App;
